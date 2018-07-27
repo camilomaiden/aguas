@@ -1,0 +1,123 @@
+*** Tareas: Agregar pack de libros de arcgis, qgis (falta), hidruailica/hidrologia, libro horacio mery
+*** Tareas: Escribir este archivo en .org. Mapa de vegetacion y nieve (niveles)
+#+TITLE: Herramientas GIS
+
+* Generar DEM a partir de Alos Palsar, y unirlos con QGIS
+
+** Alos palsar
+https://www.asf.alaska.edu/sar-data/palsar/
+[Get Data -> Unprocessed/raw data [find data] 
+Descargar datos:
+https://vertex.daac.asf.alaska.edu/#
+
+Registrarse y luego loguearse en [Earthdata login]
+Si hay problemas para dibujar el poligono, recargar la pagina con ctrl+F5
+
+1) Generar poligono en Geographic Region
+2) Fecha: Que sea posterior al terremoto del 2010
+3) Dataset: Seleccionar "Alos Palsar"
+
+Luego presionar [Search]
+*Nota: Ajustar ventana de tiempo de paso 2 para encontrar todas las baldosas que completen el area de estudio
+
+En el panel derecho se listarán todos las imagenes que coinciden con los terminos de busqueda.
+
+En el menu desplegable "Show" seleccionar:"all" "entries", para que muestre todas las imagenes que cubran la zona en estudio.
+
+Seleccionar boton [datails] de una imagen para listar los Productos "Products". Se deben descargar los productos
+"Hi-Res Terrain Corrected", este paso se realiza solo para visualizar los productos asociados a cada imagen. Cerrar la ventana desplegada.
+
+Apretar boton azul "Add to Queue by Tipe" (Agregar a la cola de descargar por tipo) -> Seleccionar "Hi-Res Terrain Corrected". Arriba en el apartado "Download queue" apareceran los seleccionados para descargar.
+Nota: Cuidado con duplicar selecciones para descargar. Se puede limpiar la lista con boton "Clear Queue"
+
+Para descargar en masa, apretar el boton [Download Python Script (.py)], que entregara a lista de archivos a descargar.
+Debe ser ejecutado con la orden "python archivo.py" desde la linea de comandos, deberas loguearte para poder descargar.
+
+Descargará un zip, se debe extraer solamente el archivo "*.dem.tif". Estos serán los dem necesarios para poder unirlos y tener de la region o cuenca en estudio.
+
+Uniendo dems en Qgis
+1) Abrir Qgis
+2) Importar *.dem.tif a "Panel de capas"
+3) Menu: Raster -> Miscelaneas -> Combinar: Seleccionar dem de entrada, archivo de salida, y activar opcion "Valor de sin datos = 0" y archivo de salida "unido.dem.tif". Luego Aceptar para computar. 
+4) Recortar con shape de la dga. 
+4.1) Descargar el shape de la pagina de la DGA -> mapas -> Mapoteca Digital -> Cuencas -> descargar archivo zip correspondiente.
+http://www.dga.cl/Paginas/default.aspx
+4.2) importar shape a "Panel de capas"
+4.3) Raster -> Extraccion -> Clipper (recorte de máscara en arcgis): 
+- Archivo de entrada: unido.dem.tif (raster)
+- Archivo de salida: recorte.dem.tif (raster)
+- Modo de corte: Capa de máscara -> cuenca.shp (vectorial)
+
+* Recursos
+** Distribuciones de python
+https://www.activestate.com/activepython
+https://www.anaconda.com/download/
+
+** Curso programacion de python (nivel 2) - David Pineda
+https://gitlab.com/pineiden/curso_programacion
+
+** Desbloquear libros:
+https://docs.google.com/document/d/1POS3KgmVBfbWcTN-vgeDGpRizfV0mI9CGHNIjikr5dQ/edit
+Descargar libros: http://libgen.io
+*** Libro recomendado
+Hidráulica: aplicada al diseño de obras
+Horacio Mery M.
+Ril editores
+
+** Grupos de google - 
+https://groups.google.com/forum/#!topic/hidroinformaticauc
+
+*** Mensaje 1
+Estimados,
+
+1.- Para practicar y conocer en profundidad el uso del sistema operativo GNU/Linux les recomiendo el manual del administrador de Debian. El libro es accesible en español de manera gratuita con licencia GNU desde la pagina oficial, tiene todo lo necesario para aprender a administrar un sistema gnu/linux y el apéndice B tiene un "Curso breve de emergencia" introductorio al uso de bash, el intérprete de instrucciones en linea de comandos.
+
+Link: https://debian-handbook.info
+
+2.- Es posible instalar los paquetes de software necesarios para el curso directamente de los repositorios oficiales de Debian mediante el gestor de paquetes apt, el cual tiene la ventaja de resolver las dependencias de manera automática. Para ello es necesario ejecutar las siguientes lineas en la terminal (link a las fuentes de cada linea)
+
+$ sudo apt install python-scipy python-matplotlib ipython
+
+   Fuente: https://stackoverflow.com/questions/600504/installing-scipy-on-linux-debian#600620
+
+$ sudo apt install python-pandas
+
+   Fuente: https://askubuntu.com/questions/70883/how-do-i-install-python-pandas/77202#77202
+
+$ sudo apt install qgis qgis-plugin-grass
+
+   Fuente: https://packages.debian.org/sid/qgis-plugin-grass
+
+3.- Para una introducción a los lenguajes orientados a objetos (mencionado en clases) un buen recurso es el libro "Think in java" de Bruce Eckel que puede ser encontrado en ingles gratuitamente con licencia creative commons.
+
+Link: http://mindviewllc.com/quicklinks/
+
+***  Mensaje 2
+Estimados 
+
+Les comparto el libro de Víctor Olaya sobre Sistemas de Información Geográfica.
+
+Es un libro super claro sobre conceptos de los SIG, que también explica sobre los modelos Raster y Vectorial que se verán más adelante en el curso y reflexiona sobre los factores organizativos en la disciplina.
+
+Es un libro libre que se puede distribuir de forma gratuita, y pueden consultar aquí: Link del libro
+http://volaya.github.io/libro-sig/
+
+Victor Olaya es un desarrollador de SIG español que cree en la filosofía del Software libre y ha participado en varios proyectos relacionados, incluyendo QGIS.
+
+*** Mensaje 3
+Les comparto el siguiente libro:
+
+Ficha del libro
+
+    Título: Geoinformática aplicada con Aprendizaje basado en problemas
+    Autor/a: Prof. Edgar Serna M. (editor)
+    Editorial: Editorial Instituto Antiqueño de Investigación
+    País: Colombia
+    Fecha edición: noviembre 2017
+    Precio: gratis (edición electrónica en PDF)
+    ISBN: 978-958-59127-7-9
+    Nº de páginas: 267 páginas
+    Idioma: español
+
+Link descarga:
+https://www.researchgate.net/publication/321808376_Geoinformatica_aplicada_con_Aprendizaje_Basado_en_Problemas
