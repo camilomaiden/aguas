@@ -3,8 +3,8 @@
 #+TITLE: Herramientas GIS
 
 * Generar DEM a partir de Alos Palsar, y unirlos con QGIS
-
 ** Alos palsar
+
 https://www.asf.alaska.edu/sar-data/palsar/
 [Get Data -> Unprocessed/raw data [find data] 
 Descargar datos:
@@ -49,6 +49,9 @@ http://www.dga.cl/Paginas/default.aspx
 - Modo de corte: Capa de máscara -> cuenca.shp (vectorial)
 
 * Recursos
+** Sistema de proyeccion
+http://spatialreference.org/ref/epsg/32719/
+
 ** Distribuciones de python
 https://www.activestate.com/activepython
 https://www.anaconda.com/download/
@@ -92,7 +95,7 @@ $ sudo apt install qgis qgis-plugin-grass
 
 Link: http://mindviewllc.com/quicklinks/
 
-***  Mensaje 2
+*** Mensaje 2
 Estimados 
 
 Les comparto el libro de Víctor Olaya sobre Sistemas de Información Geográfica.
